@@ -82,8 +82,8 @@
     <v-layout row align-center>
       <v-flex xs12>
         <v-btn
-          id="hitung"
-          @click="hitung()"
+          id="calculate"
+          @click="calculate()"
           color="primary"
           block
           >Hitung</v-btn
@@ -99,6 +99,7 @@ export default {
   // DRY & KISS PRINCIPLE
   // 1. Semua methods kurang dari 50 baris
   // 2. Tidak ada code yang berulang
+  // 3. Re-use method or component
   data(){
     return {
       calculatorType: 'square',
@@ -108,6 +109,8 @@ export default {
       tinggi: '',
       diameter: '',
       pi: 3.14,
+      // Edit here to add more variables and input type
+      // This code below is prepared for extension
       panjangList: [
         'square',
         'rectangle',
@@ -184,10 +187,10 @@ export default {
     circleArea(){
       this.result = this.pi * ((this.diameter/2)**2)
     },
-    prism(){
+    prismVolume(){
       this.result = this.result * this.tinggi
     },
-    hitung(){
+    calculate(){
       if(this.calculatorType === 'square' || this.calculatorType === 'rectangle'){
         this.squareArea()
       }else if(this.calculatorType === 'triangle'){
@@ -195,17 +198,17 @@ export default {
       }else if(this.calculatorType === 'circle'){
         this.circleArea() 
       }else if(this.calculatorType === 'prismSquare'){
-        // re-use code
+        // re-use code (DRY)
         this.squareArea()
-        this.prism()
+        this.prismVolume()
       }else if(this.calculatorType === 'triangleSquare'){
-        // re-use code
+        // re-use code (DRY)
         this.triangleArea()
-        this.prism()
+        this.prismVolume()
       }else if(this.calculatorType === 'cylinder'){
-        // re-use code
+        // re-use code (DRY)
         this.circleArea()
-        this.prism()
+        this.prismVolume()
       }
       this.resetState()
     }
